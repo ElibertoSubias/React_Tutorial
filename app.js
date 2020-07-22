@@ -27,8 +27,27 @@ const descargarUsuarios = cantidad => new Promise((resolve, reject) => {
 
 descargarUsuarios(3).
     then(
-        miembros => console.log(miembros),
+        miembros => imprimirHTML(miembros),
         error => console.error(
             new Error('Hubo un error' + error)
         )
-    )
+    );
+
+function imprimirHTML(usuarios) {
+    let html = '';
+    usuarios.forEach(usuario => {
+        
+        html += `
+            <li>
+                Nombre: ${usuario.name.first} ${usuario.name.last}
+                País: ${usuario.nat}
+                Imagen:
+                    <img src="${usuario.picture.medium}">
+            </li>
+        `;
+
+    });
+
+    const contenedorApp = document.querySelector('#app');
+    contenedorApp.innerHTML = html;
+}
