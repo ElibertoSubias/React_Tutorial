@@ -1,10 +1,7 @@
-const aprendiendoJS = {
-    varsion: {
-        nueva : 'ES6',
-        anterior : 'ES5'
-    },
-    frameworks : ['React', 'VueJS', 'AngularJS']
+const persona = {
+    nombre : 'Juan',
+    profesion : 'Desarrollador Web',
+    edad : 26
 }
 
-let {anterior} = aprendiendoJS.varsion;
-console.log(anterior);
+console.log(Object.keys(persona));
