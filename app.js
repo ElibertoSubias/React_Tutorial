@@ -1,22 +1,34 @@
-const persona = [
-    {nombre : 'Pedro', edad : 28, aprendiendo : 'PHP'},
-    {nombre : 'Cristian', edad : 21, aprendiendo : 'LAravel'},
-    {nombre : 'Carmen', edad : 24, aprendiendo : 'AngularJS'},
-    {nombre : 'Luis', edad : 30, aprendiendo : 'JS'},
-    {nombre : 'Angel', edad : 29, aprendiendo : 'JX'}
-]
+const descargarUsuarios = cantidad => new Promise((resolve, reject) => {
+    //Pasar cantidad a la API
+    const api = `https://randomuser.me/api/?results=${cantidad}&nat=us`;
 
-console.log(persona);
+    //Llamado a Ajax
+    const xhr = new XMLHttpRequest();
 
-const mayores = persona.filter(persona => {
-    return persona.edad > 28;
+    //Abrir la conexion
+    xhr.open('GET',api,true);
+
+    //On load
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            resolve(JSON.parse(xhr.responseText).results);
+        } else {
+            reject(Error(xhr.status));
+        }
+    }
+
+    //opcional (on error)
+    xhr.onerror = (error) => reject (error);
+
+    // send
+    xhr.send()
+
 });
-console.log(mayores);
 
-//find
-
-//reduce
-let total = persona.reduce((edadtotal, persona) => {
-    return edadtotal + persona.edad;
-}, 0);
-console.log(total / persona.length);
+descargarUsuarios(3).
+    then(
+        miembros => console.log(miembros),
+        error => console.error(
+            new Error('Hubo un error' + error)
+        )
+    )
