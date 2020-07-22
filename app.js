@@ -1,53 +1,32 @@
-const descargarUsuarios = cantidad => new Promise((resolve, reject) => {
-    //Pasar cantidad a la API
-    const api = `https://randomuser.me/api/?results=${cantidad}&nat=us`;
-
-    //Llamado a Ajax
-    const xhr = new XMLHttpRequest();
-
-    //Abrir la conexion
-    xhr.open('GET',api,true);
-
-    //On load
-    xhr.onload = () => {
-        if (xhr.status === 200) {
-            resolve(JSON.parse(xhr.responseText).results);
-        } else {
-            reject(Error(xhr.status));
-        }
+class Tarea {
+    constructor(nombre, prioridad) {
+        this.nombre = nombre;
+        this.prioridad = prioridad
     }
-
-    //opcional (on error)
-    xhr.onerror = (error) => reject (error);
-
-    // send
-    xhr.send()
-
-});
-
-descargarUsuarios(3).
-    then(
-        miembros => imprimirHTML(miembros),
-        error => console.error(
-            new Error('Hubo un error' + error)
-        )
-    );
-
-function imprimirHTML(usuarios) {
-    let html = '';
-    usuarios.forEach(usuario => {
-        
-        html += `
-            <li>
-                Nombre: ${usuario.name.first} ${usuario.name.last}
-                País: ${usuario.nat}
-                Imagen:
-                    <img src="${usuario.picture.medium}">
-            </li>
-        `;
-
-    });
-
-    const contenedorApp = document.querySelector('#app');
-    contenedorApp.innerHTML = html;
+    mostrar() {
+        console.log(`${this.nombre} tiene una prioridad de ${this.prioridad}`);
+    }
 }
+
+class ComprasPendientes extends Tarea {
+    constructor(nombre, prioridad, cantidad) {
+        super(nombre,prioridad);
+        this.cantidad = cantidad;
+    }
+    mostrar() {
+        console.log(`${this.nombre} tiene una prioridad de ${this.prioridad} y a cantidad de ${this.cantidad}`);
+    }
+    hola() {
+        return 'hola';
+    }
+}
+
+let tarea1 = new Tarea('Aprender JS', 'Alta');
+let tarea2 = new Tarea('Aprender Laravel', 'Baja');
+
+// console.log(tarea1.mostrar());
+// console.log(tarea2.mostrar());
+
+let compra1 = new ComprasPendientes('Jabon', 'Urgente', 3);
+compra1.mostrar();
+console.log(compra1.hola());
