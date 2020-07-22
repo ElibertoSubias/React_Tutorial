@@ -1,22 +1,22 @@
-let lenguajes = ['JavaScript', 'PHP', 'Python'];
-//let frameworks = ['React', 'Laravel', 'Django'];
+const persona = [
+    {nombre : 'Pedro', edad : 28, aprendiendo : 'PHP'},
+    {nombre : 'Cristian', edad : 21, aprendiendo : 'LAravel'},
+    {nombre : 'Carmen', edad : 24, aprendiendo : 'AngularJS'},
+    {nombre : 'Luis', edad : 30, aprendiendo : 'JS'},
+    {nombre : 'Angel', edad : 29, aprendiendo : 'JX'}
+]
 
-//Anterior
-//let combinacion = lenguajes.concat(frameworks);
+console.log(persona);
 
-//Nueva
-//let combinacion = [...lenguajes,...frameworks];
+const mayores = persona.filter(persona => {
+    return persona.edad > 28;
+});
+console.log(mayores);
 
-//Clonar Objeto 
-// let [ultimo] = [...lenguajes].reverse();
-// console.log(lenguajes);
-// console.log(ultimo);
+//find
 
-
-function suma(a,b,c){
-    console.log(a+b+c);
-}
-
-const numeros = [1,2,3];
-
-suma(...numeros);
+//reduce
+let total = persona.reduce((edadtotal, persona) => {
+    return edadtotal + persona.edad;
+}, 0);
+console.log(total / persona.length);
