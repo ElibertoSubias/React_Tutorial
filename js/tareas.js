@@ -1,3 +1,13 @@
+export const nombreTarea = 'Pasear al perro';
+
+export const crearTarea = (tarea, urgencia) => {
+    return `La tarea ${tarea} tiene una urgencia de ${urgencia}`;
+}
+
+export const tareaCompletada = () => {
+    console.log('La tarea se completó');
+}
+
 class Tarea {
     constructor(nombre, prioridad) {
         this.nombre = nombre;
@@ -21,12 +31,12 @@ class ComprasPendientes extends Tarea {
     }
 }
 
-let tarea1 = new Tarea('Aprender JS', 'Alta');
-let tarea2 = new Tarea('Aprender Laravel', 'Baja');
+// let tarea1 = new Tarea('Aprender JS', 'Alta');
+// let tarea2 = new Tarea('Aprender Laravel', 'Baja');
 
 // console.log(tarea1.mostrar());
 // console.log(tarea2.mostrar());
 
 let compra1 = new ComprasPendientes('Jabon', 'Urgente', 3);
-compra1.mostrar();
-console.log(compra1.hola());
+// compra1.mostrar();
+// console.log(compra1.hola());
