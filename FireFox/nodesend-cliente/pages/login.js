@@ -1,11 +1,24 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import React, { useContext, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import authContext from '../context/auth/authContext';
+import Alert from '../components/Alert';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+
+    // Definir el context
+    const AuthContext = useContext(authContext);
+    const { mensaje, autenticado, iniciarSesion } = AuthContext;
+
+    const router = useRouter();
+
+    useEffect(() => {
+        if (autenticado) {
+            router.push('/');
+        }
+    }, [autenticado]);
 
     // Formulario y validacion con formik y Yup
     const formik = useFormik({
@@ -18,7 +31,7 @@ export default function Login() {
             password: Yup.string().required('El password no puede ir vacio')
         }),
         onSubmit: valores => {
-            console.log(valores)
+            iniciarSesion(valores);
         }
     });
 
@@ -26,7 +39,7 @@ export default function Login() {
         <Layout>
             <div className="md:w-4/5 xl:w-3/5 mx-auto mb-32">
                 <h2 className="text-4xl font-sans font-bold text-gray-800 text-center my-4">Iniciar Sesión</h2>
-
+                { mensaje && <Alert /> }
                 <div className="flex justify-center mt-5">
                     <div className="w-full max-w-lg">
                         <form 
