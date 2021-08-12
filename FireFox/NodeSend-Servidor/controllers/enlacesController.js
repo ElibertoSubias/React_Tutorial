@@ -12,13 +12,15 @@ exports.nuevoEnlace = async (req, res, next) =>  {
         return res.status(400).json({errores: errores.array()});
     }
 
+    console.log(req.body);
+
     // Crear un objeto de Enlace
-    const { nombre_original, password } = req.body;
+    const { nombre_original, nombre } = req.body;
 
     const enlace = new Enlaces();
 
     enlace.url = shortid.generate();
-    enlace.nombre = shortid.generate();
+    enlace.nombre = nombre;
     enlace.nombre_original = nombre_original;
 
     // Si el usuario esta autenticado
@@ -43,7 +45,7 @@ exports.nuevoEnlace = async (req, res, next) =>  {
     // Almacenar en la BD
     try {
         await enlace.save();
-        return res.json({ msj: `${enlace.url}` });
+        return res.json({ msg: `${enlace.url}` });
         next();
     } catch (error) {
         console.log(error);
