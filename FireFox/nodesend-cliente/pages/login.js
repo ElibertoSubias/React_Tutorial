@@ -6,7 +6,7 @@ import authContext from '../context/auth/authContext';
 import Alerta from '../components/Alerta';
 import { useRouter } from 'next/router';
 
-export default function Login() {
+const Login = () => {
 
     // Definir el context
     const AuthContext = useContext(authContext);
@@ -100,3 +100,5 @@ export default function Login() {
         </Layout>
     )
 }
+
+export default Login;
